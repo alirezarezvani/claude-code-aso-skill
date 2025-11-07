@@ -5,6 +5,7 @@
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Claude Code](https://img.shields.io/badge/Claude_Code-Compatible-purple.svg)
+![Claude App](https://img.shields.io/badge/Claude_App-Compatible-orange.svg)
 ![Status](https://img.shields.io/badge/status-production_ready-success.svg)
 
 **Professional App Store Optimization (ASO) powered by AI agents**
@@ -17,7 +18,11 @@
 
 ## 📋 Overview
 
-The **ASO Agent System** is a comprehensive, production-ready multi-agent framework for App Store Optimization (ASO) built specifically for Claude Code. It combines specialized AI agents with real-time data fetching to generate **actionable, copy-paste ready deliverables** for iOS and Android app optimization.
+The **ASO Agent System** is a comprehensive, production-ready multi-agent framework for App Store Optimization (ASO) built for **Claude Code** and **Claude Desktop/Web App**. It combines specialized AI agents with real-time data fetching to generate **actionable, copy-paste ready deliverables** for iOS and Android app optimization.
+
+**Two ways to use:**
+- 🖥️ **Claude Code CLI** - Full multi-agent system with automated workflows (developers)
+- 🌐 **Claude Desktop/Web App** - Standalone skill for conversational ASO analysis (everyone)
 
 ### 🎯 What Makes This Different
 
@@ -95,13 +100,18 @@ Four user-facing workflows:
 
 ### Prerequisites
 
-- [Claude Code](https://claude.com/claude-code) installed
+**Choose Your Platform:**
+- **[Claude Code](https://claude.com/claude-code)** (CLI) - Full multi-agent system with automation
+- **[Claude Desktop/Web App](https://claude.ai)** - Standalone skill for direct conversations
 - macOS, Linux, or Windows
 - Internet connection (for iTunes API)
 
 ### Installation (< 5 minutes)
 
-**Option 1: Full System (Recommended)**
+#### Option 1: Claude Code (Full Multi-Agent System) - Recommended
+
+For developers using Claude Code CLI who want the complete multi-agent workflow:
+
 ```bash
 # Clone repository
 git clone https://github.com/alirezarezvani/claude-code-aso-skill.git
@@ -117,27 +127,68 @@ cp .claude/commands/aso/*.md ~/.claude/commands/
 claude --list-agents | grep aso
 ```
 
-**Option 2: Standalone Skill Only**
+---
+
+#### Option 2: Claude Desktop/Web App (Standalone Skill) - Easy Upload
+
+For users of Claude Desktop or Web App who want quick ASO analysis:
+
+**Step 1: Download the Skill Package**
 ```bash
-# Extract and install skill
+# Download app-store-optimization.zip from the repository
+# Or use wget/curl:
+wget https://github.com/alirezarezvani/claude-code-aso-skill/raw/main/app-store-optimization.zip
+```
+
+**Step 2: Upload to Claude**
+
+**For Claude Desktop App:**
+1. Open Claude Desktop
+2. Go to **Settings** (⚙️ icon)
+3. Navigate to **Capabilities** tab
+4. Click **Upload Custom Skill**
+5. Select `app-store-optimization.zip`
+6. Wait for "Skill installed successfully" message
+7. Ready to use!
+
+**For Claude Web App:**
+1. Go to [claude.ai](https://claude.ai)
+2. Click your profile icon → **Settings**
+3. Navigate to **Capabilities** section
+4. Click **Upload Custom Skill**
+5. Select `app-store-optimization.zip`
+6. Confirm upload
+7. Ready to use!
+
+**Step 3: Start Using**
+```
+Hey Claude, I just added the app-store-optimization skill.
+Analyze my app: FitFlow - fitness tracking app for beginners.
+Generate a complete ASO strategy with keyword research and metadata.
+```
+
+---
+
+#### Option 3: Manual Installation (Advanced)
+
+For advanced users who want to customize the skill:
+
+```bash
+# Extract and install skill manually
 unzip app-store-optimization.zip
 cp -r app-store-optimization ~/.claude/skills/
 
-# Use in Claude Code
-"Hey Claude, I just added the app-store-optimization skill.
-Analyze my app: FitFlow - fitness tracking app for beginners."
-```
+# For Claude Code CLI
+# Restart Claude Code
+claude --reload
 
-**Option 3: Claude Desktop App**
-```bash
-# Download and extract
-unzip app-store-optimization.zip -d ~/.claude/skills/
-
+# For Claude Desktop
 # Restart Claude Desktop app
 ```
 
 ### First Run
 
+**For Claude Code Users:**
 ```bash
 # Start Claude Code in your project directory
 claude
@@ -150,7 +201,22 @@ cd outputs/MyAwesomeApp
 cat 00-MASTER-ACTION-PLAN.md
 ```
 
-**That's it!** You'll receive a complete folder structure with copy-paste ready metadata, keyword strategy, and action checklists.
+**For Claude Desktop/Web App Users:**
+```
+Start a new conversation and say:
+
+"Hey Claude, I just added the app-store-optimization skill.
+I need help with App Store Optimization for my app called 'MyAwesomeApp'.
+It's a fitness tracking app for beginners.
+
+Please generate:
+1. Keyword research with 20 priority keywords
+2. Copy-paste ready metadata for Apple App Store
+3. Copy-paste ready metadata for Google Play Store
+4. A complete action plan with timeline"
+```
+
+**That's it!** You'll receive a complete ASO strategy with copy-paste ready metadata, keyword research, and actionable recommendations.
 
 ---
 
@@ -321,11 +387,24 @@ Layer 5: Output Structure (outputs/[app-name]/)
 - Distributable Python skill package
 - 8 modules for direct invocation
 - Works independently of agents
+- Available as ZIP file (`app-store-optimization.zip`)
+
+**ZIP Package for Claude Desktop/Web App** (`app-store-optimization.zip`)
+- **One-click installation** for Claude Desktop and Web App users
+- Upload via Settings → Capabilities
+- No command-line required
+- Instant access to ASO analysis
 
 **Agent-Integrated** (`.claude/skills/aso/`)
 - Used by ASO agents as toolkit
 - Synchronized with standalone version
 - Enables coordinated workflows
+- Full multi-agent automation
+
+**Choose Your Version:**
+- **Claude Code CLI** → Clone repository + install agents (Option 1)
+- **Claude Desktop/Web App** → Download ZIP + upload to Settings (Option 2)
+- **Advanced Users** → Manual installation from source (Option 3)
 
 See [ARCHITECTURE.md](.claude/ARCHITECTURE.md) for complete details.
 
