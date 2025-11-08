@@ -1,4 +1,4 @@
-# 🚀 ASO Agent System for Claude Code
+# 🚀 App Store Optimization (ASO) Agent and Agent Skill System for Claude Code
 
 <div align="center">
 
