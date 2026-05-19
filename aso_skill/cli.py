@@ -141,6 +141,34 @@ def _cmd_itunes(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_watch(args: argparse.Namespace) -> int:
+    """Run one ASO watcher pass against a config file."""
+    from pathlib import Path
+
+    from .watcher import format_issue_body, run_watch
+
+    config_path = Path(args.config)
+    if not config_path.is_file():
+        sys.stderr.write(f"Error: watcher config not found: {config_path}\n")
+        return 2
+
+    result = run_watch(
+        config_path=config_path,
+        update_state=args.update_state,
+    )
+
+    if args.format == "issue-body":
+        body = format_issue_body(result)
+        if args.output:
+            Path(args.output).write_text(body + "\n", encoding="utf-8")
+        else:
+            sys.stdout.write(body + "\n")
+    else:
+        _write_output(result, args.output)
+
+    return 1 if result["changes"] else 0
+
+
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="aso", description="App Store Optimization toolkit")
     parser.add_argument("--version", action="version", version=_version())
@@ -203,6 +231,25 @@ def _build_parser() -> argparse.ArgumentParser:
     p_it_app = it_sub.add_parser("app", help="Get app by ID")
     p_it_app.add_argument("--id", required=True)
     p_it.set_defaults(func=_cmd_itunes)
+
+    p_wa = sub.add_parser(
+        "watch",
+        help="Diff competitor metadata against last-known state",
+    )
+    p_wa.add_argument("--config", required=True, help="Path to watcher JSON config")
+    p_wa.add_argument(
+        "--update-state",
+        action="store_true",
+        help="Persist the new competitor snapshot back to the StateStore",
+    )
+    p_wa.add_argument(
+        "--format",
+        choices=["json", "issue-body"],
+        default="json",
+        help="Output format. 'issue-body' renders markdown suitable for a GitHub issue.",
+    )
+    p_wa.add_argument("--output", "-o", default=None)
+    p_wa.set_defaults(func=_cmd_watch)
 
     return parser
 

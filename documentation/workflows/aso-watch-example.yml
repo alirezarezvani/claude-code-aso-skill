@@ -1,0 +1,79 @@
+# Example daily ASO Watcher workflow.
+#
+# Copy this file to `.github/workflows/aso-watch.yml` in YOUR repo (not the
+# claude-code-aso-skill repo itself). Then drop a JSON config at
+# `.aso-watch.json` in your repo root listing the competitors you want to
+# track. See `documentation/workflows/aso-watch.example.json` for the shape.
+#
+# What it does:
+#   - Runs daily at 06:00 UTC (and on manual dispatch).
+#   - Fetches current iTunes metadata for each competitor in your config.
+#   - Diffs against the last-known state stored in `outputs/<app>/.state/`.
+#   - If anything material changed, opens an issue with a markdown report.
+#   - Always commits the refreshed state back to the repo so the next run
+#     sees an up-to-date baseline.
+#
+# Requirements:
+#   - `aso-skill` v1.1.0+ installed via pip.
+#   - `GITHUB_TOKEN` (provided automatically; needs `issues: write` and
+#     `contents: write` permissions, set below).
+#   - A `.aso-watch.json` file at the repo root.
+
+name: ASO Watcher
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install aso-skill
+        run: pip install --quiet aso-skill
+
+      - name: Run watcher
+        id: watch
+        # Exits 0 when nothing changed, 1 when changes were detected.
+        # `continue-on-error` lets us branch on it without failing the job.
+        continue-on-error: true
+        run: |
+          aso watch \
+            --config .aso-watch.json \
+            --update-state \
+            --format issue-body \
+            --output watch-report.md
+
+      - name: Commit refreshed state
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [[ -n "$(git status --porcelain outputs/)" ]]; then
+            git add outputs/
+            git commit -m "chore(aso-watch): refresh competitor state $(date -u +%Y-%m-%d)"
+            git push
+          else
+            echo "No state changes to commit."
+          fi
+
+      - name: Open issue on change
+        if: steps.watch.outcome == 'failure'
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "ASO Watch: competitor changes detected"
+          content-filepath: watch-report.md
+          labels: aso-watch
