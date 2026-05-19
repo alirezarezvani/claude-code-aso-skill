@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.2] - Unreleased
+
+### Claude Code plugin marketplace listing
+
+- **`.claude-plugin/marketplace.json`** — new marketplace manifest so
+  users can install the entire skill (4 agents + 4 slash commands + all
+  analytic modules) with two commands:
+  ```text
+  /plugin marketplace add alirezarezvani/claude-code-aso-skill
+  /plugin install aso@aso-skill
+  ```
+  Paths are mapped to the existing layout via the `skills`, `agents`,
+  and `commands` fields — no restructuring of the repo.
+- **`README.md`** — install section reordered: plugin marketplace is now
+  Option 1 (Recommended), with the manual `cp` instructions, ZIP upload,
+  and advanced manual install kept as Options 2-4.
+
+---
+
 ## [1.1.1] - Unreleased
 
 ### Foundation polish
