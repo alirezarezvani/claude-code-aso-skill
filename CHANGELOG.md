@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.4] - Unreleased
+
+### MCP server
+
+- **`aso_skill.mcp_server`** — new optional MCP server exposing seven
+  tools wrapping the existing analyzers: `aso_score`, `aso_optimize`,
+  `aso_validate`, `aso_analyze_keywords`, `aso_plan_ab_test`,
+  `aso_itunes_search`, `aso_itunes_app`. Built on FastMCP (the
+  high-level decorator API in the MCP Python SDK) so schemas are
+  auto-generated from type hints + docstrings.
+- **`aso-mcp` console script** — runs the server over stdio. Configure
+  Claude Desktop / Cursor / Continue / any MCP-aware client to spawn it
+  and the seven tools become available. See
+  `documentation/mcp/INSTALL.md` for setup + a Claude Desktop config
+  example.
+- **`pip install 'aso-skill[mcp]'`** — new optional dependency group
+  pulls in `mcp>=1.0`. Core install stays zero-dependency.
+- 12 new tests in `tests/test_mcp_server.py` covering each tool handler
+  directly plus a smoke check that all seven tools register on the
+  FastMCP server. Uses `pytest.importorskip` so the suite still passes
+  on stdlib-only installs.
+
+---
+
 ## [1.1.3] - Unreleased
 
 ### ASO Watcher

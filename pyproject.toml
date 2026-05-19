@@ -51,9 +51,13 @@ dev = [
 test = [
     "pytest>=7.0",
 ]
+mcp = [
+    "mcp>=1.0",
+]
 
 [project.scripts]
 aso = "aso_skill.cli:main"
+aso-mcp = "aso_skill.mcp_server:main"
 
 [tool.setuptools.packages.find]
 include = ["aso_skill*"]
