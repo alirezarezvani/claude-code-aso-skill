@@ -108,9 +108,28 @@ Four user-facing workflows:
 
 ### Installation (< 5 minutes)
 
-#### Option 1: Claude Code (Full Multi-Agent System) - Recommended
+#### Option 1: Claude Code Plugin Marketplace (one command) - Recommended
 
-For developers using Claude Code CLI who want the complete multi-agent workflow:
+If you're on Claude Code, the fastest path is the plugin marketplace:
+
+```text
+/plugin marketplace add alirezarezvani/claude-code-aso-skill
+/plugin install aso@aso-skill
+```
+
+This installs the skill, all four agents (`aso-master`, `aso-research`,
+`aso-optimizer`, `aso-strategist`), and the four slash commands
+(`/aso-full-audit`, `/aso-optimize`, `/aso-prelaunch`, `/aso-competitor`)
+across all your projects. No git clone, no manual file copies, no
+restart required.
+
+To verify: run `/plugin` and confirm `aso` is listed.
+
+---
+
+#### Option 2: Claude Code (manual install)
+
+For developers who want to clone the repo (e.g. for offline work or contribution):
 
 ```bash
 # Clone repository
@@ -129,7 +148,7 @@ claude --list-agents | grep aso
 
 ---
 
-#### Option 2: Claude Desktop/Web App (Standalone Skill) - Easy Upload
+#### Option 3: Claude Desktop/Web App (Standalone Skill) - Easy Upload
 
 For users of Claude Desktop or Web App who want quick ASO analysis:
 
@@ -169,7 +188,7 @@ Generate a complete ASO strategy with keyword research and metadata.
 
 ---
 
-#### Option 3: Manual Installation (Advanced)
+#### Option 4: Manual Installation (Advanced)
 
 For advanced users who want to customize the skill:
 
