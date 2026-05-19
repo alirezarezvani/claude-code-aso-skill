@@ -1,0 +1,19 @@
+{
+  "app_name": "TaskFlow",
+  "country": "us",
+  "rating_delta_threshold": 0.1,
+  "competitors": [
+    {
+      "name": "Todoist",
+      "app_id": "572688855"
+    },
+    {
+      "name": "Any.do",
+      "app_id": "497328576"
+    },
+    {
+      "name": "Microsoft To Do",
+      "app_id": "1212616790"
+    }
+  ]
+}

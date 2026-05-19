@@ -7,6 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.3] - Unreleased
+
+### ASO Watcher
+
+- **`aso_skill.watcher`** — new module that diffs competitor metadata
+  across time. Reads a JSON config listing competitors, fetches current
+  iTunes data, compares against the per-app `StateStore`, and returns the
+  list of material changes (title, subtitle, version, seller, price, plus
+  rating delta above a configurable threshold; defaults to 0.1). Noisy
+  fields like description and `userRatingCount` are deliberately skipped.
+- **`aso watch` CLI subcommand** —
+  ```text
+  aso watch --config .aso-watch.json --update-state --format issue-body
+  ```
+  Exits 0 when nothing changed, 1 when changes were detected. The
+  `issue-body` format renders a markdown table suitable for pasting into
+  a GitHub issue.
+- **Example workflow** at
+  `documentation/workflows/aso-watch-example.yml` — daily GitHub Action
+  that downstream repos can copy. Runs `aso watch`, opens an issue when
+  changes are detected, and commits the refreshed state back to the
+  repo so the next run sees an up-to-date baseline.
+- **Example config** at
+  `documentation/workflows/aso-watch.example.json` — shows the JSON
+  schema (`app_name`, `country`, `rating_delta_threshold`, `competitors`)
+  with three sample competitors.
+- 12 new tests in `tests/test_watcher.py` covering config validation,
+  first-run "new" detection, change detection, rating-threshold
+  enforcement, failed-fetch handling, and the issue-body renderer.
+
+---
+
 ## [1.1.2] - Unreleased
 
 ### Claude Code plugin marketplace listing
