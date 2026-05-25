@@ -29,7 +29,7 @@ jobs:
         id: check
         env:
           HEAD_REF: ${{ github.event.pull_request.head.ref }}
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const headRef = process.env.HEAD_REF;
@@ -107,7 +107,7 @@ jobs:
 
       - name: Validation summary
         if: always()
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         env:
           CHECK_OUTCOME: ${{ steps.claude-check.outcome }}
         with:

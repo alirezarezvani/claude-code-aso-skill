@@ -34,7 +34,7 @@ jobs:
 
       - name: Verify dev branch exists
         id: verify-dev
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             try {
@@ -51,7 +51,7 @@ jobs:
       - name: Check if PR already exists
         id: check-pr
         if: steps.verify-dev.outputs.exists == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const branch = context.ref.replace('refs/heads/', '');
@@ -85,7 +85,7 @@ jobs:
       - name: Build PR title, body and labels
         id: build-pr
         if: steps.check-pr.outputs.pr_exists == 'false'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         env:
           BRANCH_NAME: ${{ github.ref_name }}
           HAS_ISSUE: ${{ steps.extract-issue.outputs.has_issue }}
@@ -148,7 +148,7 @@ jobs:
 
       - name: Create pull request
         if: steps.check-pr.outputs.pr_exists == 'false'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         env:
           PR_TITLE: ${{ steps.build-pr.outputs.title }}
           PR_BODY: ${{ steps.build-pr.outputs.body }}
@@ -195,7 +195,7 @@ jobs:
 
       - name: Comment on existing PR
         if: steps.check-pr.outputs.pr_exists == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         env:
           PR_NUMBER: ${{ steps.check-pr.outputs.pr_number }}
         with:
