@@ -60,7 +60,7 @@ jobs:
       - name: Check if release PR already exists
         id: check-pr
         if: steps.check-changes.outputs.has_changes == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const { data: pulls } = await github.rest.pulls.list({
@@ -159,7 +159,7 @@ jobs:
 
       - name: Create release pull request
         if: steps.check-changes.outputs.has_changes == 'true' && steps.check-pr.outputs.pr_exists == 'false'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         env:
           NEXT_VERSION: ${{ steps.next-version.outputs.next_version }}
           BODY_FILE: ${{ steps.build-body.outputs.body_file }}
