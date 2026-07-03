@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.1.4] - Unreleased
 
+### Documentation
+
+- Document AppNiche / GetAppNiche as an optional ASO data source with
+  API/MCP setup notes in `app-store-optimization/lib/data_sources.md`.
+
 ### MCP server
 
 - **`aso_skill.mcp_server`** — new optional MCP server exposing seven
