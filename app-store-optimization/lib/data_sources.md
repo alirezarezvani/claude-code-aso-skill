@@ -284,6 +284,14 @@ Third-party ASO tools provide additional data not available from free sources.
 - **Setup:** Requires API key
 - **Accuracy:** Proprietary algorithms (generally reliable)
 
+### AppNiche / GetAppNiche
+
+- **Cost:** Paid API access; free no-account revenue and keyword-checker pages available
+- **Data:** iOS app revenue and download estimates, keyword metrics, rankings, reviews, and competitor signals
+- **API / MCP Docs:** https://getappniche.com/docs/api-and-mcp
+- **Setup:** Requires API key for the API/MCP workflow
+- **Accuracy:** Proprietary estimates; useful for indie-focused iOS market and ASO research
+
 ### App Annie (data.ai)
 
 - **Cost:** $1000+/month
